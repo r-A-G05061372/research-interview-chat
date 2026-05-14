@@ -411,7 +411,7 @@
 </div>
 
 <script>
-  const POWER_AUTOMATE_URL = 'https://default6ad91895de06485ebc51fce126cc85.30.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/0fe11fa309f74a70a554d3ca91820842/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=sLLFYAe55Q83jBSdCMHedl1R1OO40D09ZxQm3qZkoXg';
+  const POWER_AUTOMATE_URL = 'YOUR_POWER_AUTOMATE_URL_HERE';
 
   let sessionId = '';
   let participantId = '';
@@ -435,6 +435,17 @@
   consentCheckbox.addEventListener('change', checkConsent);
   participantIdInput.addEventListener('input', checkConsent);
 
+  // Opening message from Professor Nardon's protocol
+  const OPENING_MESSAGE = `Welcome, and thank you for completing the focus group. This reflective conversation is the second part of the study. You are interacting with an AI system, not a human researcher.
+
+A few reminders before we begin: your responses will be de-identified — no names or identifying information will be attached to this transcript. This conversation is text-based only; there is no audio or video recording. Your participation is voluntary and you can skip any question at any time. The transcript of this conversation will only be read by the research team and will not be used to train AI systems.
+
+The purpose of this conversation is to give you a space to reflect on what came up in the focus group — what stood out, what you found yourself thinking about, or anything you didn't get a chance to say.
+
+If you have any questions or concerns, please contact the research team before proceeding.
+
+Do you agree to proceed?`;
+
   // Start interview
   startBtn.addEventListener('click', () => {
     participantId = participantIdInput.value.trim();
@@ -444,8 +455,9 @@
     consentScreen.style.display = 'none';
     chatScreen.style.display = 'flex';
 
-    // Send initial greeting
-    sendMessage('Hello, I am ready to begin the interview.');
+    // Show opening message directly without calling API
+    addMessage('ai', OPENING_MESSAGE);
+    conversationHistory.push({ role: 'assistant', content: OPENING_MESSAGE });
   });
 
   // Auto-resize textarea
